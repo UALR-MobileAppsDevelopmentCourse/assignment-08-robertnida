@@ -10,6 +10,7 @@ import android.provider.Telephony;
 import android.view.View;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.ualr.recyclerviewassignment.Utils.AdapterListBasic;
 import com.ualr.recyclerviewassignment.Utils.DataGenerator;
 import com.ualr.recyclerviewassignment.model.Inbox;
 
@@ -45,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         mBinding.recyclerView.setLayoutManager(layoutManager);
         // TODO 09. Create a new instance of the created Adapter class and bind it to the RecyclerView instance created in step 03
+        mAdapter = new AdapterListBasic(this, items);
+        mBinding.recyclerView.setAdapter(mAdapter);
         mFAB = findViewById(R.id.fab);
         mFAB.setOnClickListener(new View.OnClickListener() {
             @Override

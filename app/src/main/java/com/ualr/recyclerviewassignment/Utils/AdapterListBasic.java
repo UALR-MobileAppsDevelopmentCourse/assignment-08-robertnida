@@ -39,6 +39,7 @@ public class AdapterListBasic extends RecyclerView.Adapter {
         PersonViewHolder viewHolder = (PersonViewHolder)holder;
         Inbox p = mItems.get(position);
         viewHolder.name.setText(p.getFrom());
+        viewHolder.image.findViewById(R.id.imageView);
     }
 
     @Override
