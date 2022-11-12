@@ -52,4 +52,5 @@ public class Inbox {
     public void toggleSelection() {
         this.selected = !this.selected;
     }
+    }
 }

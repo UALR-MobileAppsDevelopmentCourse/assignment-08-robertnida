@@ -38,8 +38,7 @@ public class AdapterListBasic extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         PersonViewHolder viewHolder = (PersonViewHolder)holder;
         Inbox p = mItems.get(position);
-        viewHolder.name.setText(p.getName());
-        viewHolder.image.setImageResource(p.image);
+        viewHolder.name.setText(p.getFrom());
     }
 
     @Override
@@ -56,7 +55,7 @@ public class AdapterListBasic extends RecyclerView.Adapter {
             super(v);
             this.image = v.findViewById(R.id.image);
             this.name = v.findViewById(R.id.name);
-            this.lyt_parent =
+            this.lyt_parent = v.findViewById(R.id.lyt_parent);
         }
     }
 }
