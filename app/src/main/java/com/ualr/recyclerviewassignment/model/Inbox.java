@@ -11,34 +11,36 @@ public class Inbox {
         this.selected = false;
     }
 
-    public void setFrom(String from) { this.from = from; }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
     public String getFrom() {
         return from;
+    }
+
+    public void setFrom(String from) {
+        this.from = from;
     }
 
     public String getEmail() {
         return email;
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getMessage() {
         return message;
     }
 
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
     public String getDate() {
         return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public boolean isSelected() {
@@ -51,6 +53,5 @@ public class Inbox {
 
     public void toggleSelection() {
         this.selected = !this.selected;
-    }
     }
 }

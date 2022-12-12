@@ -5,16 +5,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.provider.Contacts;
 import android.provider.ContactsContract;
-import android.provider.Telephony;
 import android.view.View;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.ualr.recyclerviewassignment.Utils.AdapterListBasic;
 import com.ualr.recyclerviewassignment.Utils.DataGenerator;
 import com.ualr.recyclerviewassignment.model.Inbox;
-
-import org.xml.sax.helpers.XMLReaderAdapter;
 
 import java.util.List;
 
@@ -25,9 +22,13 @@ import java.util.List;
 //  Implement a new method to delete the corresponding item in the list
 // TODO 08. Create a new method to add a new item on the top of the list. Use the DataGenerator class to create the new item to be added.
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity
+{
 
     private FloatingActionButton mFAB;
+    private Adapter mAdapter;
+    private RecyclerView recyclerView;
+    private static final int DEFAULT_POS = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,25 +37,40 @@ public class MainActivity extends AppCompatActivity {
         initComponent();
     }
 
-    private void initComponent() {
+    private void initComponent()
+    {
         // TODO 01. Generate the item list to be displayed using the DataGenerator class
-        // TODO 03. Do the setup of a new RecyclerView instance to display the item list properly
         List<Inbox> items = DataGenerator.getInboxData(this);
         items.addAll(DataGenerator.getInboxData(this));
-        items.addAll(DataGenerator.getInboxData(this));
-        // TODO 04. Define the layout of each item in the list
+
+        // TODO 03. Do the setup of a new RecyclerView instance to display the item list properly
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-        mBinding.recyclerView.setLayoutManager(layoutManager);
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(layoutManager);
+
+        // TODO 04. Define the layout of each item in the list
+
         // TODO 09. Create a new instance of the created Adapter class and bind it to the RecyclerView instance created in step 03
-        mAdapter = new AdapterListBasic(this, items);
-        mBinding.recyclerView.setAdapter(mAdapter);
+        mAdapter = new Adapter(this, items);
+        recyclerView.setAdapter(mAdapter);
+
+        mAdapter.setOnItemClickListener(new Adapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position)
+            {
+                mAdapter.itemSelected(position);
+            }
+        });
+
         mFAB = findViewById(R.id.fab);
         mFAB.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view)
+            {
                 // TODO 10. Invoke the method created to a new item to the top of the list so it's
                 //  triggered when the user taps the Floating Action Button
-
+                mAdapter.addItemToTop();
+                recyclerView.scrollToPosition(DEFAULT_POS);
             }
         });
     }

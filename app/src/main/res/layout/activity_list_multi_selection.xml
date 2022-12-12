@@ -2,17 +2,20 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/lyt_parent"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <!-- TODO 02. Add RecyclerView element here -->
-<androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/recyclerview"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:scrollbars="vertical"
-    android:scrollingCache="true"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"
+        android:scrollingCache="true">
+
+    </androidx.recyclerview.widget.RecyclerView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
@@ -24,6 +27,7 @@
         app:backgroundTint="@color/blue_500"
         app:fabSize="normal"
         app:rippleColor="@color/blue_900"
-        app:srcCompat="@drawable/ic_add_circle_outline_24px" />
+        app:srcCompat="@drawable/ic_add_circle_outline_24px"
+        tools:ignore="SpeakableTextPresentCheck" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
