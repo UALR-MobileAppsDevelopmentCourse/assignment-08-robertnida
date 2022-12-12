@@ -34,4 +34,24 @@
         <item>01 Jan 2016</item>
     </string-array>
 
+    <string-array name="people_initials">
+        <item>A</item>
+        <item>A</item>
+        <item>L</item>
+        <item>B</item>
+        <item>M</item>
+
+        <item>G</item>
+        <item>R</item>
+        <item>M</item>
+        <item>S</item>
+        <item>K</item>
+
+        <item>E</item>
+        <item>E</item>
+        <item>R</item>
+        <item>B</item>
+        <item>S</item>
+    </string-array>
+
 </resources>

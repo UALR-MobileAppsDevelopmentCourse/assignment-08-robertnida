@@ -1,4 +1,4 @@
-package com.ualr.recyclerviewassignment.model;;
+package com.ualr.recyclerviewassignment.model;
 
 public class Inbox {
     private String from;
@@ -6,6 +6,7 @@ public class Inbox {
     private String message;
     private String date;
     private boolean selected;
+    private String initials;
 
     public Inbox() {
         this.selected = false;
@@ -41,6 +42,14 @@ public class Inbox {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getInitials() {
+        return initials;
+    }
+
+    public void setInitials(String initials) {
+        this.initials = initials;
     }
 
     public boolean isSelected() {

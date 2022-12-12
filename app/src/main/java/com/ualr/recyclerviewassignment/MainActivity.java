@@ -1,75 +1,95 @@
 package com.ualr.recyclerviewassignment;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.ualr.recyclerviewassignment.Utils.InboxFragment;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.provider.Contacts;
-import android.provider.ContactsContract;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.ualr.recyclerviewassignment.Utils.DataGenerator;
-import com.ualr.recyclerviewassignment.Utils.Fragment;
-import com.ualr.recyclerviewassignment.model.Inbox;
+public class MainActivity extends AppCompatActivity {
 
-import java.util.List;
-
-
-public class MainActivity extends AppCompatActivity
-{
-
-    private FloatingActionButton mFAB;
-    private Adapter mAdapter;
-    private RecyclerView recyclerView;
-    private static final int DEFAULT_POS = 0;
+    private static final String TAG = MainActivity.class.getSimpleName();
+    private InboxFragment inboxListFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_multi_selection);
-        FragmentTransaction ft= getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.fragment_placeholder, new Fragment());
-        initComponent();
-        ft.commit();
-    }
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        inboxListFragment = (InboxFragment) getSupportFragmentManager().findFragmentById(R.id.fragment);
 
-    private void initComponent()
-    {
-        // TODO 01. Generate the item list to be displayed using the DataGenerator class
-        List<Inbox> items = DataGenerator.getInboxData(this);
-        items.addAll(DataGenerator.getInboxData(this));
-
-        // TODO 03. Do the setup of a new RecyclerView instance to display the item list properly
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(layoutManager);
-
-        // TODO 09. Create a new instance of the created Adapter class and bind it to the RecyclerView instance created in step 03
-        mAdapter = new Adapter(this, items);
-        recyclerView.setAdapter(mAdapter);
-
-        mAdapter.setOnItemClickListener(new Adapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(int position)
-            {
-                mAdapter.itemSelected(position);
-            }
-        });
-
-        mFAB = findViewById(R.id.fab);
+        FloatingActionButton mFAB = findViewById(R.id.fab);
         mFAB.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view)
-            {
-                // TODO 10. Invoke the method created to a new item to the top of the list so it's
-                //  triggered when the user taps the Floating Action Button
-                mAdapter.addItemToTop();
-                recyclerView.scrollToPosition(DEFAULT_POS);
+            public void onClick(View view) {
+                onFABClicked();
             }
         });
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_list_selection_menu, menu);
+        return true;
+    }
+
+    @SuppressLint("NonConstantResourceId")
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.delete_action:
+                onDeleteClicked();
+                return true;
+            case R.id.forward_action:
+                onForwardClicked();
+                return true;
+            default: return super.onOptionsItemSelected(item);
+        }
+    }
+
+    public void showBar() {
+        CoordinatorLayout parentView = findViewById(R.id.lyt_parent);
+        String msg = getResources().getString(R.string.snackbar_message);
+        int duration = Snackbar.LENGTH_LONG;
+        Snackbar snackbar = Snackbar.make(parentView, msg, duration);
+        snackbar.setAction(R.string.snackbar_action, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d(TAG, "Bar action tapped");
+            }
+        });
+        snackbar.show();
+    }
+
+    public void onFABClicked() {
+        if (inboxListFragment != null && inboxListFragment.isInLayout()) {
+            inboxListFragment.addEmail();
+        }
+    }
+
+    public void onDeleteClicked() {
+        if (inboxListFragment != null && inboxListFragment.isInLayout()) {
+            boolean emailDeleted = inboxListFragment.deleteEmail();
+            if (emailDeleted) {
+                String deleteMsg = getResources().getString(R.string.snackbar_message);
+                showBar();
+            }
+        }
+    }
+
+    public void onForwardClicked() {
+        if (inboxListFragment != null && inboxListFragment.isInLayout()) {
+            inboxListFragment.forwardEmail();
+        }
+    }
 }

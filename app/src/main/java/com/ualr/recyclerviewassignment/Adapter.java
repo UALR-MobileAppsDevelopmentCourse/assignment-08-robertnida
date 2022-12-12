@@ -1,11 +1,10 @@
 package com.ualr.recyclerviewassignment;
 
-import android.provider.ContactsContract;
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.content.Context;
-import android.widget.AdapterView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,9 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.ualr.recyclerviewassignment.Utils.DataGenerator;
 import com.ualr.recyclerviewassignment.model.Inbox;
 import java.util.List;
-import com.ualr.recyclerviewassignment.Utils.Tools;
-
-import org.w3c.dom.Text;
 
 public class Adapter extends RecyclerView.Adapter
 {
@@ -26,7 +22,8 @@ public class Adapter extends RecyclerView.Adapter
 
     public interface OnItemClickListener
     {
-        void onItemClick(int position);
+        void OnItemClick(View view, Inbox obj, int position);
+        void onIconClick(View view, Inbox obj, int position);
     }
 
     public void setOnItemClickListener(final OnItemClickListener mItemClickListener)
@@ -38,30 +35,6 @@ public class Adapter extends RecyclerView.Adapter
     {
         this.mItems = items;
         this.mContext = context;
-    }
-
-    public void removeItem(int position)
-    {
-        if (position >= mItems.size())
-        {
-            return;
-        }
-        mItems.remove(position);
-        notifyItemRemoved(position);
-        notifyItemRangeChanged(position, getItemCount());
-    }
-
-    public void addItemToTop()
-    {
-        Inbox item = DataGenerator.getRandomInboxItem(mContext);
-        mItems.add(0, item);
-        notifyItemInserted(0);
-    }
-
-    public void itemSelected(int position)
-    {
-        mItems.get(position).toggleSelection();
-        notifyItemChanged(position);
     }
 
     @NonNull
@@ -82,12 +55,11 @@ public class Adapter extends RecyclerView.Adapter
     {
         Inbox item = mItems.get(position);
         EmailViewHolder viewHolder = (EmailViewHolder) holder;
-        Inbox email = (Inbox) item;
 
-        viewHolder.from.setText(email.getFrom());
-        viewHolder.message.setText(email.getMessage());
-        viewHolder.email.setText(email.getEmail());
-        viewHolder.date.setText(email.getDate());
+        viewHolder.from.setText(((Inbox) item).getFrom());
+        viewHolder.message.setText(((Inbox) item).getMessage());
+        viewHolder.email.setText(((Inbox) item).getEmail());
+        viewHolder.date.setText(((Inbox) item).getDate());
 
         if (item.isSelected())
         {
@@ -96,7 +68,7 @@ public class Adapter extends RecyclerView.Adapter
         }
         else
         {
-            viewHolder.letter.setText(email.getFrom().substring(0, 1));
+            viewHolder.letter.setText(((Inbox) item).getFrom().substring(0, 1));
             viewHolder.lyt_parent.setBackgroundColor(mContext.getResources().getColor(R.color.overlay_light_90));
         }
 
@@ -107,7 +79,14 @@ public class Adapter extends RecyclerView.Adapter
         return this.mItems.size();
     }
 
-    public class EmailViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
+    @SuppressLint("NotifyDataSetChanged")
+    public void updateItems(List<Inbox> inboxList)
+    {
+        this.mItems = inboxList;
+        notifyDataSetChanged();
+    }
+
+    public class EmailViewHolder extends RecyclerView.ViewHolder
     {
         public TextView from;
         public TextView letter;
@@ -125,28 +104,21 @@ public class Adapter extends RecyclerView.Adapter
             message = v.findViewById(R.id.message);
             date = v.findViewById(R.id.date);
             lyt_parent = v.findViewById(R.id.lyt_parent);
-            lyt_parent.setOnClickListener(this);
+            lyt_parent.setOnClickListener((View.OnClickListener) this);
 
-            letter.setOnClickListener(new View.OnClickListener()
-            {
+            lyt_parent.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View view)
-                {
-                    if (mItems.get(getLayoutPosition()).isSelected())
-                    {
-                        removeItem(getLayoutPosition());
-                    }
+                public void onClick(View view) {
+                    mOnItemClickListener.OnItemClick(view, mItems.get(getLayoutPosition()), getLayoutPosition());
                 }
             });
 
+            letter.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mOnItemClickListener.onIconClick(v, mItems.get(getLayoutPosition()), getLayoutPosition());
+                }
+            });
         }
-
-        @Override
-        public void onClick(View view)
-        {
-            mOnItemClickListener.onItemClick(getLayoutPosition());
-
-        }
-
     }
 }
