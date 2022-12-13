@@ -1,4 +1,4 @@
-package com.ualr.recyclerviewassignment;
+package com.ualr.recyclerviewassignment.model;
 
 import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.ualr.recyclerviewassignment.R;
 import com.ualr.recyclerviewassignment.Utils.DataGenerator;
 import com.ualr.recyclerviewassignment.model.Inbox;
 import java.util.List;

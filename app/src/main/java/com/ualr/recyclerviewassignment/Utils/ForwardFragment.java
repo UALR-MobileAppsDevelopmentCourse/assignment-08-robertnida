@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.ualr.recyclerviewassignment.R;
 import com.ualr.recyclerviewassignment.model.Inbox;
+import com.ualr.recyclerviewassignment.model.SharedModel;
 
 import java.util.List;
 import java.util.Objects;

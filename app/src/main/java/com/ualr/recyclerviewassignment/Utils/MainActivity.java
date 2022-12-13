@@ -1,10 +1,11 @@
-package com.ualr.recyclerviewassignment;
+package com.ualr.recyclerviewassignment.Utils;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.ualr.recyclerviewassignment.Utils.InboxFragment;
+import com.ualr.recyclerviewassignment.R;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 

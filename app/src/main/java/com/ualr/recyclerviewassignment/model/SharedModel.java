@@ -1,4 +1,4 @@
-package com.ualr.recyclerviewassignment.Utils;
+package com.ualr.recyclerviewassignment.model;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

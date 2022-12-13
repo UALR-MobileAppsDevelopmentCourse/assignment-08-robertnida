@@ -14,9 +14,10 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.ualr.recyclerviewassignment.Adapter;
 import com.ualr.recyclerviewassignment.R;
+import com.ualr.recyclerviewassignment.model.Adapter;
 import com.ualr.recyclerviewassignment.model.Inbox;
+import com.ualr.recyclerviewassignment.model.SharedModel;
 
 import java.util.List;
 
