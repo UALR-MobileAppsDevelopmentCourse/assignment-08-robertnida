@@ -10,8 +10,8 @@ import java.util.List;
 
 public class SharedModel extends ViewModel {
     private static final int NO_SELECTION = -1;
-    private MutableLiveData<List<Inbox>> inboxList = new MutableLiveData<>();
-    private MutableLiveData<Integer> selectedIndex = new MutableLiveData<>(NO_SELECTION);
+    private final MutableLiveData<List<Inbox>> inboxList = new MutableLiveData<>();
+    private final MutableLiveData<Integer> selectedIndex = new MutableLiveData<>(NO_SELECTION);
 
     public LiveData<List<Inbox>> getInboxList() {
         return inboxList;

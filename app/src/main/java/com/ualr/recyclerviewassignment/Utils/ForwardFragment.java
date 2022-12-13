@@ -55,11 +55,10 @@ public class ForwardFragment extends DialogFragment {
 
         if (selectedIndex >= 0) {
             final Inbox selectedItem = Objects.requireNonNull(mViewModel.getInboxList().getValue()).get(selectedIndex);
-
-            Button sendBtn = view.findViewById(R.id.dialog_send_btn);
+            Button sendBtn = view.findViewById(R.id.send_button);
             final EditText nameET = view.findViewById(R.id.dialog_name);
             final EditText emailET = view.findViewById(R.id.dialog_to);
-            final EditText contentET = view.findViewById(R.id.dialog_msg);
+            final EditText contentET = view.findViewById(R.id.dialog_message);
 
             nameET.setText(selectedItem.getFrom());
             emailET.setText(selectedItem.getEmail());
@@ -68,22 +67,22 @@ public class ForwardFragment extends DialogFragment {
             sendBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    //TODO These get the information
                     String newName = nameET.getText().toString();
                     String newEmail = emailET.getText().toString();
                     String newContent = contentET.getText().toString();
-
                     char firstLetter = newName.charAt(0);
                     String newInitial = "" + firstLetter;
-
                     Inbox forwardEmail = new Inbox();
+                    //TODO These set the information in a temporary instance of Inbox
                     forwardEmail.setFrom(newName);
                     forwardEmail.setInitials(newInitial);
                     forwardEmail.setEmail(newEmail);
                     forwardEmail.setMessage(newContent);
                     forwardEmail.setDate(selectedItem.getDate());
                     forwardEmail.setSelected(false);
-
                     List<Inbox> currentEmails = mViewModel.getInboxList().getValue();
+                    //TODO Then this should be sending the information to the InboxFragment, but it's not?
                     currentEmails.set(selectedIndex, forwardEmail);
                     mViewModel.setInboxList(currentEmails);
                     dismissDialog();

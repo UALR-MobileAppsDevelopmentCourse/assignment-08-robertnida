@@ -47,14 +47,14 @@
             android:hint="@string/message_label"
             >
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/dialog_msg"
+                android:id="@+id/dialog_message"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 />
         </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/dialog_send_btn"
+            android:id="@+id/send_button"
             style="@style/Widget.AppCompat.Button.Borderless.Colored"
             android:textColor="@color/colorPrimary"
             android:text="@string/send_btn_label"
