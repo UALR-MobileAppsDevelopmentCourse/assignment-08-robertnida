@@ -11,15 +11,18 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ualr.recyclerviewassignment.R;
-import com.ualr.recyclerviewassignment.Utils.DataGenerator;
-import com.ualr.recyclerviewassignment.model.Inbox;
 import java.util.List;
 
-public class Adapter extends RecyclerView.Adapter
+public class Adapter extends RecyclerView.Adapter implements View.OnClickListener
 {
     private List<Inbox> mItems;
     private Context mContext;
     private OnItemClickListener mOnItemClickListener;
+
+    @Override
+    public void onClick(View view) {
+
+    }
 
     public interface OnItemClickListener
     {
@@ -87,8 +90,7 @@ public class Adapter extends RecyclerView.Adapter
         notifyDataSetChanged();
     }
 
-    public class EmailViewHolder extends RecyclerView.ViewHolder
-    {
+    public class EmailViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView from;
         public TextView letter;
         public TextView email;
@@ -105,7 +107,7 @@ public class Adapter extends RecyclerView.Adapter
             message = v.findViewById(R.id.message);
             date = v.findViewById(R.id.date);
             lyt_parent = v.findViewById(R.id.lyt_parent);
-            lyt_parent.setOnClickListener((View.OnClickListener) this);
+            lyt_parent.setOnClickListener(this);
 
             lyt_parent.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -120,6 +122,11 @@ public class Adapter extends RecyclerView.Adapter
                     mOnItemClickListener.onIconClick(v, mItems.get(getLayoutPosition()), getLayoutPosition());
                 }
             });
+        }
+
+        @Override
+        public void onClick(View view) {
+
         }
     }
 }
