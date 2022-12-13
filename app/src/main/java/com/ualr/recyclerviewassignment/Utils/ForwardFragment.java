@@ -6,26 +6,25 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
-
 import com.ualr.recyclerviewassignment.R;
 import com.ualr.recyclerviewassignment.model.Inbox;
 import com.ualr.recyclerviewassignment.model.SharedModel;
-
 import java.util.List;
 import java.util.Objects;
 
-public class ForwardFragment extends DialogFragment {
-    private static final String TAG = ForwardFragment.class.getSimpleName();
-    private static final String SELECT_KEY = "selectedIndex";
+public class ForwardFragment extends DialogFragment
+{
     private SharedModel mViewModel;
+    private static final String SELECT_KEY = "selectedIndex";
+    private static final String TAG = ForwardFragment.class.getSimpleName();
 
 
-    public static ForwardFragment newInstance(int selectedIndex) {
+    public static ForwardFragment newInstance(int selectedIndex)
+    {
         ForwardFragment fragment = new ForwardFragment();
         Bundle args = new Bundle();
         args.putInt(SELECT_KEY, selectedIndex);
@@ -34,7 +33,8 @@ public class ForwardFragment extends DialogFragment {
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setStyle(DialogFragment.STYLE_NO_TITLE, R.style.Theme_AppCompat_DayNight_Dialog_MinWidth);
         mViewModel = new ViewModelProvider(requireActivity()).get(SharedModel.class);
@@ -47,13 +47,15 @@ public class ForwardFragment extends DialogFragment {
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
+    {
         super.onViewCreated(view, savedInstanceState);
 
         assert getArguments() != null;
         final int selectedIndex = getArguments().getInt(SELECT_KEY);
 
-        if (selectedIndex >= 0) {
+        if (selectedIndex >= 0)
+        {
             final Inbox selectedItem = Objects.requireNonNull(mViewModel.getInboxList().getValue()).get(selectedIndex);
             Button sendBtn = view.findViewById(R.id.send_button);
             final EditText nameET = view.findViewById(R.id.dialog_name);
@@ -64,7 +66,8 @@ public class ForwardFragment extends DialogFragment {
             emailET.setText(selectedItem.getEmail());
             contentET.setText(selectedItem.getMessage());
 
-            sendBtn.setOnClickListener(new View.OnClickListener() {
+            sendBtn.setOnClickListener(new View.OnClickListener()
+            {
                 @Override
                 public void onClick(View view) {
                     //TODO These get the information
