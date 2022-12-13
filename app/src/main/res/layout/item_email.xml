@@ -19,7 +19,7 @@
         android:layout_height="50dp"
         android:layout_weight="0"
         android:background="@drawable/shape_circle"
-        android:backgroundTint="@color/blue_grey_700"
+        android:backgroundTint="@color/blue_500"
         android:gravity="center"
         android:text="X"
         android:textColor="@color/overlay_light_90"

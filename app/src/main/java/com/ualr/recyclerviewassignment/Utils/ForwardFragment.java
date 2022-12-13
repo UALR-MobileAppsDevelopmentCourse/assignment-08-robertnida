@@ -31,6 +31,11 @@ public class ForwardFragment extends DialogFragment
         fragment.setArguments(args);
         return fragment;
     }
+    @NonNull
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_dialog, container, false);
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState)
@@ -38,12 +43,6 @@ public class ForwardFragment extends DialogFragment
         super.onCreate(savedInstanceState);
         setStyle(DialogFragment.STYLE_NO_TITLE, R.style.Theme_AppCompat_DayNight_Dialog_MinWidth);
         mViewModel = new ViewModelProvider(requireActivity()).get(SharedModel.class);
-    }
-
-    @NonNull
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_dialog, container, false);
     }
 
     @Override
@@ -86,7 +85,7 @@ public class ForwardFragment extends DialogFragment
                     forwardEmail.setSelected(false);
                     List<Inbox> currentEmails = mViewModel.getInboxList().getValue();
                     //TODO Then this should be sending the information to the InboxFragment, but it's not?
-                    currentEmails.set(selectedIndex, forwardEmail);
+                    currentEmails.add(0, forwardEmail);
                     mViewModel.setInboxList(currentEmails);
                     dismissDialog();
                 }
